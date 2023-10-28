@@ -1,4 +1,5 @@
 import { component$, useSignal, useVisibleTask$ } from "@builder.io/qwik";
+import { useNavigate } from "@builder.io/qwik-city";
 import axios from "axios";
 import Graph from "graphology";
 import gexf from "graphology-gexf";
@@ -8,6 +9,8 @@ import Sigma from "sigma";
 export const ObsidianGraph = component$(() => {
   const container = useSignal<HTMLElement>();
   const text = useSignal<string>();
+
+  const nav = useNavigate();
 
   useVisibleTask$(async () => {
     await axios
@@ -91,6 +94,7 @@ export const ObsidianGraph = component$(() => {
 
       renderer.on("doubleClickNode", (e) => {
         console.log(e.node);
+        nav(`/notes/${e.node}`);
         // Prevent sigma to move camera:
         e.preventSigmaDefault();
       });

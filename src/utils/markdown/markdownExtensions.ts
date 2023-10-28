@@ -28,7 +28,7 @@ export const myext1 = {
     // Replace Markdown links with HTML <a> tags
     const htmlText = markdownText.replace(
       linkRegex,
-      '<a href="/notes/$1">$2</a>'
+      '<a href="/notes/$1.md">$2</a>'
     );
     return htmlText;
   },

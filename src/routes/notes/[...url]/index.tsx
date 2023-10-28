@@ -1,6 +1,6 @@
 import { component$ } from "@builder.io/qwik";
 import { useLocation, type DocumentHead } from "@builder.io/qwik-city";
-import { ObsidianConverter } from "~/components/ObsidianConverter";
+import { ObsidianConverter } from "~/components/obsidian/ObsidianConverter";
 
 export default component$(() => {
   const loc = useLocation();
