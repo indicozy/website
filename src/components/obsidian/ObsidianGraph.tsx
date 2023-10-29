@@ -1,4 +1,9 @@
-import { component$, useSignal, useVisibleTask$ } from "@builder.io/qwik";
+import {
+  component$,
+  useSignal,
+  useTask$,
+  useVisibleTask$,
+} from "@builder.io/qwik";
 import { useNavigate } from "@builder.io/qwik-city";
 import axios from "axios";
 import Graph from "graphology";
@@ -12,7 +17,7 @@ export const ObsidianGraph = component$(() => {
 
   const nav = useNavigate();
 
-  useVisibleTask$(async () => {
+  useTask$(async () => {
     await axios
       .get<string>(
         "https://raw.githubusercontent.com/indicozy/notes/master/nodes.gexf"
@@ -24,6 +29,7 @@ export const ObsidianGraph = component$(() => {
         // TODO error here
       });
   });
+
   useVisibleTask$(async ({ track }) => {
     track(() => container.value && text.value);
     const ref = container.value;
