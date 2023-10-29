@@ -2,9 +2,9 @@
 
 ## Features
 
-- Second brain-like note system
-  - Parsing from Github CDN
-  - Markdown rendering
+- [x] Second brain-like note system
+  - [x] Parsing from Github CDN
+  - [x] Markdown rendering
 - Page About
 - Main page
 - Chatbot contact
@@ -12,3 +12,5 @@
 - CV -> read.cv
 - Colophon
 - Dark mode
+
+- Parsing Github status
