@@ -14,3 +14,9 @@
 - Dark mode
 
 - Parsing Github status
+
+- [x] Weather API
+- [x] Air pollution?
+- Time zone
+- [x] Hireable or not
+- [x] bio
