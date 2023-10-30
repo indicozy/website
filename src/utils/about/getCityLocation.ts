@@ -70,12 +70,10 @@ const zRes = z.object({
   ),
 });
 
-const api_key = "AIzaSyAC5WV1WFMFGjO-dvqgNe7K1HvfsCG5GBs";
-
 export const getCityLocation = async (address: string) => {
   const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
     address
-  )}&key=${api_key}`;
+  )}&key=${import.meta.env.PUBLIC_GOOGLE_MAPS_API}`;
   const data = await axios.get(url);
   const dataClean = zRes.parse(data.data);
   if (dataClean.results.length === 0) {

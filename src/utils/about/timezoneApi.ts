@@ -1,8 +1,6 @@
 import axios from "axios";
 import { z } from "zod";
 
-const api_key = "AIzaSyAC5WV1WFMFGjO-dvqgNe7K1HvfsCG5GBs";
-
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const returnSample = {
   dstOffset: 0,
@@ -25,7 +23,11 @@ export const timezoneApi = async (location: {
   latitude: number;
 }) => {
   const timestamp = Math.floor(new Date().getTime() / 1000);
-  const url = `https://maps.googleapis.com/maps/api/timezone/json?location=${location.latitude}%2C${location.longitude}&timestamp=${timestamp}&key=${api_key}`;
+  const url = `https://maps.googleapis.com/maps/api/timezone/json?location=${
+    location.latitude
+  }%2C${location.longitude}&timestamp=${timestamp}&key=${
+    import.meta.env.PUBLIC_GOOGLE_MAPS_API
+  }`;
   console.log(url);
   const res = await axios.get(url);
   console.log(res.data);
