@@ -1,26 +1,30 @@
-import { component$, useSignal, useTask$ } from "@builder.io/qwik";
+import { Resource, component$, useResource$ } from "@builder.io/qwik";
 import showdown from "showdown";
-import axios from "axios";
 import { showdownExtensions } from "~/utils/markdown/markdownExtensions";
 
 export const ObsidianConverter = component$<{ url: string }>(({ url }) => {
-  const markdownToHtml = useSignal<string>();
+  const markdownToHtml = useResource$<string>(({ track, cleanup }) => {
+    track(() => url);
 
-  useTask$(async () => {
-    await axios
-      .get<string>(url)
-      .then((res) => {
+    const controller = new AbortController();
+    const signal = controller.signal;
+    cleanup(() => controller.abort());
+
+    return fetch(url, { signal })
+      .then((res) => res.text())
+      .then((text) => {
         const converter = new showdown.Converter({
           extensions: showdownExtensions,
         });
-
-        const { data: text } = res;
-        markdownToHtml.value = converter.makeHtml(text);
-      })
-      .catch(() => {
-        markdownToHtml.value = "404 Not found";
+        return converter.makeHtml(text);
       });
   });
 
-  return <div dangerouslySetInnerHTML={markdownToHtml.value} />;
+  return (
+    <Resource
+      value={markdownToHtml}
+      onPending={() => <div>Loading...</div>}
+      onResolved={(data) => <div dangerouslySetInnerHTML={data} />}
+    />
+  );
 });

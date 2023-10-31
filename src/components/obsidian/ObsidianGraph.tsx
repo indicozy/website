@@ -1,40 +1,30 @@
 import {
+  Resource,
   component$,
+  useResource$,
   useSignal,
-  useTask$,
   useVisibleTask$,
 } from "@builder.io/qwik";
 import { useNavigate } from "@builder.io/qwik-city";
-import axios from "axios";
 import Graph from "graphology";
 import gexf from "graphology-gexf";
 import ForceSupervisor from "graphology-layout-force/worker";
 import Sigma from "sigma";
 
-export const ObsidianGraph = component$(() => {
+const GraphClient = component$<{ text: string }>(({ text }) => {
   const container = useSignal<HTMLElement>();
-  const text = useSignal<string>();
+  // const textSignal = useSignal<string>();
 
   const nav = useNavigate();
-
-  useTask$(async () => {
-    await axios
-      .get<string>(
-        "https://raw.githubusercontent.com/indicozy/notes/master/nodes.gexf"
-      )
-      .then((res) => {
-        text.value = res.data;
-      })
-      .catch(() => {
-        // TODO error here
-      });
-  });
-
+  // const status = useSignal<"success" | "error">();
   useVisibleTask$(async ({ track }) => {
-    track(() => container.value && text.value);
+    // track(() => graphText.value);
+    track(() => container.value);
     const ref = container.value;
-    if (ref !== undefined && text.value !== undefined) {
-      const graph = gexf.parse(Graph, text.value);
+    console.log("cooking");
+    if (ref !== undefined) {
+      console.log("cooked");
+      const graph = gexf.parse(Graph, text);
 
       // Create the spring layout and start it
       const layout = new ForceSupervisor(graph, {
@@ -106,6 +96,34 @@ export const ObsidianGraph = component$(() => {
       });
     }
   });
-
   return <div ref={container} style={{ height: "600px" }} />;
+});
+
+export const ObsidianGraph = component$(() => {
+  const graphText = useResource$<string>(({ cleanup }) => {
+    const controller = new AbortController();
+    const signal = controller.signal;
+    cleanup(() => controller.abort());
+    return fetch(
+      "https://raw.githubusercontent.com/indicozy/notes/master/nodes.gexf",
+      { signal }
+    )
+      .then((res) => res.text())
+      .then((text) => {
+        console.log(text);
+        return text;
+      });
+  });
+
+  return (
+    <Resource
+      value={graphText}
+      onPending={() => <div>Loading...</div>}
+      onResolved={(text) => (
+        <div>
+          <GraphClient text={text} />
+        </div>
+      )}
+    />
+  );
 });

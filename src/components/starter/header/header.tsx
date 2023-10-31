@@ -8,6 +8,7 @@ type TLink = { href: string; text: string };
 const pages: TLink[] = [
   { href: "/", text: "Home" },
   { href: "/about", text: "About" },
+  { href: "/notes", text: "Notes" },
   { href: "/fun", text: "Fun" },
 ];
 
