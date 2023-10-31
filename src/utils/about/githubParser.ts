@@ -1,4 +1,3 @@
-import axios from "axios";
 import z from "zod";
 
 const zodCheck = z.object({
@@ -24,21 +23,22 @@ const safeObject: z.infer<typeof zodCheck> = {
   twitter_username: "indicozy",
 };
 
-export const parseGithubAccount: () => Promise<
-  z.infer<typeof zodCheck>
-> = () => {
-  return axios
-    .get("https://api.github.com/users/indicozy", {
-      headers: {
-        Accept: "application/vnd.github+json",
-        "X-GitHub-Api-Version": "2022-11-28",
-      },
-    })
-    .then((res) => {
-      if (!zodCheck.safeParse(res.data).success) {
+export const parseGithubAccount: (
+  signal?: AbortSignal
+) => Promise<z.infer<typeof zodCheck>> = (signal) => {
+  return fetch("https://api.github.com/users/indicozy", {
+    headers: {
+      Accept: "application/vnd.github+json",
+      "X-GitHub-Api-Version": "2022-11-28",
+    },
+    signal: signal,
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      if (!zodCheck.safeParse(data).success) {
         return safeObject;
       }
-      return zodCheck.parse(res.data);
+      return zodCheck.parse(data);
     })
     .catch(() => {
       return safeObject;

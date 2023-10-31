@@ -1,10 +1,20 @@
-import { component$, useSignal, useTask$ } from "@builder.io/qwik";
+import { Resource, component$, useResource$ } from "@builder.io/qwik";
 import { aboutHandler } from "~/utils/about/aboutHandler";
 
 export const AboutComponent = component$(() => {
-  const lol = useSignal<any>({});
-  useTask$(async () => {
-    await aboutHandler().then((res) => (lol.value = res));
+  const markdownToHtml = useResource$(({ cleanup }) => {
+    const controller = new AbortController();
+    const signal = controller.signal;
+    cleanup(() => controller.abort());
+
+    return aboutHandler(signal);
   });
-  return <>{JSON.stringify(lol.value)}</>;
+
+  return (
+    <Resource
+      value={markdownToHtml}
+      onPending={() => <div>Loading...</div>}
+      onResolved={(data) => <>{JSON.stringify(data)}</>}
+    />
+  );
 });

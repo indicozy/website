@@ -1,4 +1,3 @@
-import axios from "axios";
 import { z } from "zod";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -70,12 +69,15 @@ const zRes = z.object({
   ),
 });
 
-export const getCityLocation = async (address: string) => {
+export const getCityLocation = async (
+  address: string,
+  signal?: AbortSignal
+) => {
   const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
     address
   )}&key=${import.meta.env.PUBLIC_GOOGLE_MAPS_API}`;
-  const data = await axios.get(url);
-  const dataClean = zRes.parse(data.data);
+  const data = await fetch(url, { signal: signal }).then((res) => res.json());
+  const dataClean = zRes.parse(data);
   if (dataClean.results.length === 0) {
     throw Error("dataClean.results.length === 0");
   }

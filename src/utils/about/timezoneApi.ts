@@ -1,4 +1,3 @@
-import axios from "axios";
 import { z } from "zod";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -18,10 +17,13 @@ const zRes = z.object({
   timeZoneName: z.string(),
 });
 
-export const timezoneApi = async (location: {
-  longitude: number;
-  latitude: number;
-}) => {
+export const timezoneApi = async (
+  location: {
+    longitude: number;
+    latitude: number;
+  },
+  signal?: AbortSignal
+) => {
   const timestamp = Math.floor(new Date().getTime() / 1000);
   const url = `https://maps.googleapis.com/maps/api/timezone/json?location=${
     location.latitude
@@ -29,10 +31,10 @@ export const timezoneApi = async (location: {
     import.meta.env.PUBLIC_GOOGLE_MAPS_API
   }`;
   console.log(url);
-  const res = await axios.get(url);
-  console.log(res.data);
+  const res = await fetch(url, { signal: signal }).then((res) => res.json());
+  console.log(res);
 
-  const dataClean = zRes.parse(res.data);
+  const dataClean = zRes.parse(res);
 
   // https://forum.freecodecamp.org/t/convert-timezone-shift-in-seconds-from-utc-in-javascript/437305
   const nowInLocalTime = Date.now() + 1000 * dataClean.rawOffset;

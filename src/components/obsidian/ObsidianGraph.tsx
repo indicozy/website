@@ -100,30 +100,22 @@ const GraphClient = component$<{ text: string }>(({ text }) => {
 });
 
 export const ObsidianGraph = component$(() => {
-  const graphText = useResource$<string>(({ cleanup }) => {
+  const graphText = useResource$<string>(async ({ cleanup }) => {
     const controller = new AbortController();
     const signal = controller.signal;
     cleanup(() => controller.abort());
-    return fetch(
+    const data: string = await fetch(
       "https://raw.githubusercontent.com/indicozy/notes/master/nodes.gexf",
       { signal }
-    )
-      .then((res) => res.text())
-      .then((text) => {
-        console.log(text);
-        return text;
-      });
+    ).then((res) => res.text());
+    return data;
   });
 
   return (
     <Resource
       value={graphText}
       onPending={() => <div>Loading...</div>}
-      onResolved={(text) => (
-        <div>
-          <GraphClient text={text} />
-        </div>
-      )}
+      onResolved={(text) => <GraphClient text={text} />}
     />
   );
 });

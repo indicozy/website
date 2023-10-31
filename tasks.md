@@ -17,6 +17,8 @@
 
 - [x] Weather API
 - [x] Air pollution?
-- Time zone
+- [x] Time zone
 - [x] Hireable or not
 - [x] bio
+
+- useResource is highly inconsistent.

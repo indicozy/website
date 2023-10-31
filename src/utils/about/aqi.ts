@@ -1,4 +1,3 @@
-import axios from "axios";
 import { z } from "zod";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -61,17 +60,20 @@ const zRes = z.object({
   }),
 });
 
-export const getAqi = async ({
-  longitude,
-  latitude,
-}: {
-  longitude: number;
-  latitude: number;
-}) => {
+export const getAqi = async (
+  {
+    longitude,
+    latitude,
+  }: {
+    longitude: number;
+    latitude: number;
+  },
+  signal?: AbortSignal
+) => {
   const url = `http://api.airvisual.com/v2/nearest_city?lat=${latitude}&lon=${longitude}&key=${
     import.meta.env.PUBLIC_IQAIR_API_KEY
   }`;
-  const data = await axios.get(url);
-  const dataClean = zRes.parse(data.data);
+  const data = await fetch(url, { signal }).then((res) => res.json());
+  const dataClean = zRes.parse(data);
   return dataClean;
 };
