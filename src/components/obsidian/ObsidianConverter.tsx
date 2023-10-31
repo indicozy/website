@@ -11,6 +11,10 @@ export const ObsidianConverter = component$<{ url: string }>(({ url }) => {
     cleanup(() => controller.abort());
 
     return fetch(url, { signal })
+      .catch((err) => {
+        console.log(err, err?.cause?.errors);
+        throw err;
+      })
       .then((res) => res.text())
       .then((text) => {
         const converter = new showdown.Converter({

@@ -12,8 +12,6 @@
     "build": "qwik build",
     "build.client": "vite build",
     "build.preview": "vite build --ssr src/entry.preview.tsx",
-    "build.server": "vite build -c adapters/bun/vite.config.ts",
-    "build.total": "bun run build.client && bun run build.server",
     "build.types": "tsc --incremental --noEmit",
     "deploy": "echo 'Run \"bun run qwik add\" to install a server adapter'",
     "dev": "vite --mode ssr",
@@ -22,7 +20,6 @@
     "fmt.check": "prettier --check .",
     "lint": "eslint \"src/**/*.ts*\"",
     "preview": "qwik build preview && vite preview --open",
-    "serve": "bun server/entry.bun.js",
     "start": "vite --open --mode ssr",
     "qwik": "qwik"
   },
