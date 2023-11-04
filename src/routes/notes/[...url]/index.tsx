@@ -1,16 +1,48 @@
 import { component$ } from "@builder.io/qwik";
-import { useLocation, type DocumentHead } from "@builder.io/qwik-city";
-import { ObsidianConverter } from "~/components/obsidian/ObsidianConverter";
+import {
+  type DocumentHead,
+  routeLoader$,
+  useLocation,
+} from "@builder.io/qwik-city";
+import { ObsidianPageBuilder } from "~/components/obsidian/ObsidianPageBuilder";
+
+const lolBuilder = (url: string, str?: string) =>
+  `${import.meta.env.PUBLIC_MARKDOWN_URL}${str ? "/" + str : ""}/${url}`;
+
+const urlBuilder = (url: string, type: "md" | "gexf" | "nonMd" | "normal") => {
+  if (type === "md") {
+    return lolBuilder(url, "markdown");
+  }
+  if (type === "gexf") {
+    return lolBuilder(url, "graph");
+  }
+  if (type === "nonMd") {
+    return lolBuilder(url, "markdown");
+  }
+  return lolBuilder(url);
+};
+
+export const useGetGraphText = routeLoader$<{
+  gexfText: string;
+  htmlText: string;
+}>(async (requestEvent) => {
+  const { url } = requestEvent.params;
+  const gexfLink = urlBuilder(url, "gexf");
+  console.log(gexfLink);
+  const gexfText = await fetch(gexfLink).then((res) => res.text());
+  const htmlText = await fetch(urlBuilder(url, "md")).then((res) => res.text());
+
+  return { gexfText, htmlText };
+});
 
 export default component$(() => {
+  const getGraphText = useGetGraphText();
+  const { gexfText, htmlText } = getGraphText.value;
   const loc = useLocation();
   const url = loc.params.url;
   return (
     <>
-      {/* {JSON.stringify(`${import.meta.env.PUBLIC_MARKDOWN_URL}/${url}`)} */}
-      <ObsidianConverter
-        url={`${import.meta.env.PUBLIC_MARKDOWN_URL}/${url}`}
-      />
+      <ObsidianPageBuilder url={url} htmlText={htmlText} graphText={gexfText} />
     </>
   );
 });

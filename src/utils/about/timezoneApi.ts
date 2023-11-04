@@ -1,4 +1,5 @@
 import { z } from "zod";
+// API: GOOGLE
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const returnSample = {
@@ -30,9 +31,7 @@ export const timezoneApi = async (
   }%2C${location.longitude}&timestamp=${timestamp}&key=${
     import.meta.env.PUBLIC_GOOGLE_MAPS_API
   }`;
-  console.log(url);
   const res = await fetch(url, { signal: signal }).then((res) => res.json());
-  console.log(res);
 
   const dataClean = zRes.parse(res);
 

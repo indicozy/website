@@ -1,4 +1,5 @@
 import z from "zod";
+// API: GITHUB PUBLIC
 
 const zodCheck = z.object({
   login: z.string(),

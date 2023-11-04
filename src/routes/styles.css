@@ -1,8 +1,7 @@
-/* THIS FILE IS JUST FOR EXAMPLES, DELETE IT IF YOU DON'T NEED IT */
-
 /* SHELL ---------------------------------------- */
-html {
+/* html {
   font-family:
+    "Geist",
     ui-sans-serif,
     system-ui,
     -apple-system,
@@ -17,7 +16,7 @@ html {
     "Segoe UI Emoji",
     "Segoe UI Symbol",
     "Noto Color Emoji";
-}
+} */
 
 body {
   background: var(--qwik-dark-background);
