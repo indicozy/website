@@ -1,11 +1,17 @@
 import { component$ } from "@builder.io/qwik";
 import { routeLoader$, type DocumentHead } from "@builder.io/qwik-city";
 import { ObsidianGraphClient } from "~/components/obsidian/ObsidianGraph";
+import { getEnv } from "~/utils/getEnv";
 
 export const useGetGraphText = routeLoader$<string>(async () => {
-  const url = "http://127.0.0.1:9000" + "/indicozy-obsidian/" + "graph.gexf";
-  const gexfText = await fetch(url).then((res) => res.text());
-
+  const url = getEnv().PUBLIC_MARKDOWN_URL + "/graph.gexf";
+  console.log(url);
+  const gexfText = await fetch(url)
+    .then((res) => res.text())
+    .catch((err) => {
+      console.log(err.cause);
+      throw err;
+    });
   return gexfText;
 });
 
