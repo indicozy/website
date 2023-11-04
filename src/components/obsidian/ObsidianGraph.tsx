@@ -1,10 +1,4 @@
-import {
-  Resource,
-  component$,
-  useResource$,
-  useSignal,
-  useVisibleTask$,
-} from "@builder.io/qwik";
+import { component$, useSignal, useVisibleTask$ } from "@builder.io/qwik";
 import { useNavigate } from "@builder.io/qwik-city";
 import Graph from "graphology";
 import gexf from "graphology-gexf";
@@ -17,11 +11,14 @@ export const ObsidianGraphClient = component$<{
 }>(({ text, isInteractive }) => {
   const container = useSignal<HTMLElement>();
   const nav = useNavigate();
+  // const location = useLocation();
 
   useVisibleTask$(async ({ track }) => {
     track(() => container.value);
+    track(() => text);
     const ref = container.value;
     if (ref !== undefined) {
+      console.log(text);
       const graph = gexf.parse(Graph, text);
 
       // Create the sigma
@@ -90,31 +87,12 @@ export const ObsidianGraphClient = component$<{
             renderer.setCustomBBox(renderer.getBBox());
         });
       }
+
+      return () => {
+        renderer.kill();
+      };
     }
+    return () => {};
   });
   return <div ref={container} style={{ height: "600px" }} />;
-});
-
-export const ObsidianGraph = component$(() => {
-  const graphText = useResource$<string>(async ({ cleanup }) => {
-    const controller = new AbortController();
-    const signal = controller.signal;
-    cleanup(() => controller.abort());
-    const link = "http://127.0.0.1:9000" + "/indicozy-obsidian/" + "graph.gexf";
-    console.log(link);
-    const data: string = await fetch(link, { signal }).then((res) =>
-      res.text()
-    );
-    return data;
-  });
-
-  return (
-    <Resource
-      value={graphText}
-      onPending={() => <div>Loading...</div>}
-      onResolved={(text) => (
-        <ObsidianGraphClient text={text} isInteractive={false} />
-      )}
-    />
-  );
 });

@@ -6,11 +6,11 @@ export const ObsidianPageBuilder = component$<{
   url: string;
   graphText: string;
   htmlText: string;
-}>(({ graphText, htmlText }) => {
+}>(({ graphText, htmlText, url }) => {
   return (
     <>
-      <ObsidianGraphClient text={graphText} isInteractive={true} />
-      <HtmlStringToGraph data={htmlText} />
+      <ObsidianGraphClient key={url} text={graphText} isInteractive={true} />
+      <HtmlStringToGraph key={url} data={htmlText} />
     </>
   );
 });

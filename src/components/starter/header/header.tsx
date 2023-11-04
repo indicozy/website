@@ -2,6 +2,7 @@ import { $, component$, useSignal } from "@builder.io/qwik";
 // import { QwikLogo } from "../icons/qwik";
 import styles from "./header.module.css";
 import { toggleContact } from "~/components/contact";
+import { Link } from "@builder.io/qwik-city";
 
 type TLink = { href: string; text: string };
 
@@ -26,9 +27,9 @@ const HeaderItem = component$<{
   const container = useSignal<HTMLElement>();
   return (
     <li>
-      <a ref={container} href={href} class={isActive ? `active` : ""}>
+      <Link ref={container} href={href} class={isActive ? `active` : ""}>
         {text}
-      </a>
+      </Link>
     </li>
   );
 });

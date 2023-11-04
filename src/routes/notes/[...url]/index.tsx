@@ -28,7 +28,6 @@ export const useGetGraphText = routeLoader$<{
 }>(async (requestEvent) => {
   const { url } = requestEvent.params;
   const gexfLink = urlBuilder(url, "gexf");
-  console.log(gexfLink);
   const gexfText = await fetch(gexfLink).then((res) => res.text());
   const htmlText = await fetch(urlBuilder(url, "md")).then((res) => res.text());
 
@@ -40,6 +39,7 @@ export default component$(() => {
   const { gexfText, htmlText } = getGraphText.value;
   const loc = useLocation();
   const url = loc.params.url;
+  console.log(url);
   return (
     <>
       <ObsidianPageBuilder url={url} htmlText={htmlText} graphText={gexfText} />

@@ -1,12 +1,19 @@
 import { component$ } from "@builder.io/qwik";
-import type { DocumentHead } from "@builder.io/qwik-city";
-import { ObsidianGraph } from "~/components/obsidian/ObsidianGraph";
+import { routeLoader$, type DocumentHead } from "@builder.io/qwik-city";
+import { ObsidianGraphClient } from "~/components/obsidian/ObsidianGraph";
+
+export const useGetGraphText = routeLoader$<string>(async () => {
+  const url = "http://127.0.0.1:9000" + "/indicozy-obsidian/" + "graph.gexf";
+  const gexfText = await fetch(url).then((res) => res.text());
+
+  return gexfText;
+});
 
 export default component$(() => {
+  const getGraphText = useGetGraphText();
   return (
     <div>
-      notes
-      <ObsidianGraph />
+      <ObsidianGraphClient text={getGraphText.value} isInteractive={false} />
     </div>
   );
 });
