@@ -27,7 +27,12 @@ const HeaderItem = component$<{
   const container = useSignal<HTMLElement>();
   return (
     <li>
-      <Link ref={container} href={href} class={isActive ? `active` : ""}>
+      <Link
+        prefetch
+        ref={container}
+        href={href}
+        class={isActive ? `active` : ""}
+      >
         {text}
       </Link>
     </li>

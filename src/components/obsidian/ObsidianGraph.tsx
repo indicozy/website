@@ -18,7 +18,7 @@ export const ObsidianGraphClient = component$<{
     track(() => text);
     const ref = container.value;
     if (ref !== undefined) {
-      console.log(text);
+      // console.log(text);
       const graph = gexf.parse(Graph, text);
 
       // Create the sigma
@@ -26,7 +26,7 @@ export const ObsidianGraphClient = component$<{
 
       // push on double click
       renderer.on("doubleClickNode", (e) => {
-        console.log(e.node);
+        // console.log(e.node);
         nav(`/notes/${e.node}`);
         // Prevent sigma to move camera:
         e.preventSigmaDefault();

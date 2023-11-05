@@ -39,7 +39,7 @@ export default component$(() => {
   const { gexfText, htmlText } = getGraphText.value;
   const loc = useLocation();
   const url = loc.params.url;
-  console.log(url);
+  // console.log(url);
   return (
     <>
       <ObsidianPageBuilder url={url} htmlText={htmlText} graphText={gexfText} />
