@@ -1,9 +1,7 @@
-:root {
-  --primary-color: #185ee0;
-  --secondary-color: #e6eef9;
-}
-
 header {
+  --tab-width: 5rem;
+  --tab-height: 2rem;
+  --tab-padding: 0.4rem;
   position: fixed;
   top: 1rem;
   left: 0px;
@@ -37,7 +35,7 @@ header {
 
 .tabs.opaque {
   background-color: rgba(255, 255, 255, 0.4);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(8px);
 }
 
 input[type="radio"] {
@@ -48,12 +46,12 @@ input[type="radio"] {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 33px;
-  width: 67px;
+  height: var(--tab-height);
+  width: var(--tab-width);
   font-size: 1rem;
   font-weight: 500;
   border-radius: 99px;
-  padding: 0px 5px;
+  padding: 0px var(--tab-padding);
   cursor: pointer;
   transition: color 0.15s ease-in;
   z-index: 2;
@@ -64,11 +62,7 @@ input[type="radio"] {
 input[type="radio"] {
   &:checked {
     & + label {
-      color: var(--primary-color);
-      & > .notification {
-        background-color: var(--primary-color);
-        color: #fff;
-      }
+      color: var(--qwik-light-text);
     }
   }
 }
@@ -76,7 +70,13 @@ input[type="radio"] {
 input[id="radio-"] {
   &:checked {
     & ~ .glider {
-      transform: translateX(calc(0% + calc(1 * 5px)));
+      --multiply-to: 0;
+      transform: translateX(
+        calc(
+          calc(100% * var(--multiply-to)) +
+            calc(calc(calc(var(--multiply-to) * 2) + 1) * var(--tab-padding))
+        )
+      );
     }
   }
 }
@@ -84,7 +84,13 @@ input[id="radio-"] {
 input[id="radio-about"] {
   &:checked {
     & ~ .glider {
-      transform: translateX(calc(100% + calc(3 * 5px)));
+      --multiply-to: 1;
+      transform: translateX(
+        calc(
+          calc(100% * var(--multiply-to)) +
+            calc(calc(calc(var(--multiply-to) * 2) + 1) * var(--tab-padding))
+        )
+      );
     }
   }
 }
@@ -92,15 +98,13 @@ input[id="radio-about"] {
 input[id="radio-notes"] {
   &:checked {
     & ~ .glider {
-      transform: translateX(calc(200% + calc(5 * 5px)));
-    }
-  }
-}
-
-input[id="radio-fun"] {
-  &:checked {
-    & ~ .glider {
-      transform: translateX(calc(300% + calc(7 * 5px)));
+      --multiply-to: 2;
+      transform: translateX(
+        calc(
+          calc(100% * var(--multiply-to)) +
+            calc(calc(calc(var(--multiply-to) * 2) + 1) * var(--tab-padding))
+        )
+      );
     }
   }
 }
@@ -108,15 +112,13 @@ input[id="radio-fun"] {
 input[id="radio-mentorship"] {
   &:checked {
     & ~ .glider {
-      transform: translateX(calc(400% + calc(9 * 5px)));
-    }
-  }
-}
-
-input[id="radio-contacts"] {
-  &:checked {
-    & ~ .glider {
-      transform: translateX(calc(500% + calc(11 * 5px)));
+      --multiply-to: 3;
+      transform: translateX(
+        calc(
+          calc(100% * var(--multiply-to)) +
+            calc(calc(calc(var(--multiply-to) * 2) + 1) * var(--tab-padding))
+        )
+      );
     }
   }
 }
@@ -124,9 +126,9 @@ input[id="radio-contacts"] {
 .glider {
   position: absolute;
   display: flex;
-  height: 33px;
-  width: 67px;
-  background-color: rgba(255, 255, 255, 0.5);
+  height: var(--tab-height);
+  width: var(--tab-width);
+  background-color: rgba(255, 255, 255, 0.4);
   z-index: 1;
   border-radius: 99px;
   transition: 0.25s ease-out;

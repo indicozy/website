@@ -57,7 +57,7 @@ const LinksHandler = component$<{ links: TLink[] }>(({ links }) => {
     <div
       document:onscroll$={() => {
         const y = window.scrollY;
-        if (y > 100) {
+        if (y > 50) {
           isOpaque.value = true;
         } else {
           isOpaque.value = false;
