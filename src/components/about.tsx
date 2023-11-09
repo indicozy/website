@@ -2,7 +2,7 @@ import { component$ } from "@builder.io/qwik";
 import { type aboutHandler } from "~/utils/about/aboutHandler";
 
 const aqiUsEmoji = (aqi: number) => {
-  if (aqi < 50) return "☺️";
+  if (aqi < 50) return "️😊";
   if (aqi < 100) return "🙃";
   if (aqi < 150) return "🫤";
   if (aqi < 200) return "😷";
