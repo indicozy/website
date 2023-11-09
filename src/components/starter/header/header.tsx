@@ -1,68 +1,87 @@
-import { $, component$, useSignal } from "@builder.io/qwik";
+import { component$, useSignal } from "@builder.io/qwik";
 // import { QwikLogo } from "../icons/qwik";
-import styles from "./header.module.css";
-import { toggleContact } from "~/components/contact";
-import { Link } from "@builder.io/qwik-city";
+import "./header.css";
+import { Link, useLocation } from "@builder.io/qwik-city";
 
 type TLink = { href: string; text: string };
 
 const pages: TLink[] = [
-  { href: "/", text: "Home" },
-  { href: "/about", text: "About" },
-  { href: "/notes", text: "Notes" },
-  { href: "/fun", text: "Fun" },
+  { href: "", text: "Home" },
+  { href: "about", text: "About" },
+  { href: "notes", text: "Notes" },
+  { href: "fun", text: "Fun" },
+  { href: "mentorship", text: "Mentor" },
+  { href: "contacts", text: "Contact" },
 ];
-
-type TBackground = {
-  width: number;
-  height: number;
-  left: number;
-};
 
 const HeaderItem = component$<{
   link: TLink;
-  isActive: boolean;
-}>(({ link: { href, text }, isActive }) => {
-  // TODO: css is placeholder for the future CSS updates
-  const container = useSignal<HTMLElement>();
+  isChecked: boolean;
+  onCheck$: (val: string) => void;
+}>(({ link: { href, text }, isChecked, onCheck$ }) => {
+  const id = `radio-${href}`;
+  const hrefAbsolute = `/${href}`;
+
   return (
-    <li>
+    <>
+      <input type="radio" id={id} name="tabs" checked={isChecked} />
       <Link
         prefetch
-        ref={container}
-        href={href}
-        class={isActive ? `active` : ""}
+        href={hrefAbsolute}
+        class={isChecked ? `active` : ""}
+        onClick$={() => onCheck$(hrefAbsolute)}
       >
-        {text}
+        <label class="tab" for={id} onChange$={() => onCheck$(hrefAbsolute)}>
+          {text}
+        </label>
       </Link>
-    </li>
+    </>
   );
 });
 
 // NOTE: Qwik does not support persisting state during route changes
 const LinksHandler = component$<{ links: TLink[] }>(({ links }) => {
-  const fillProps = useSignal<TBackground>();
+  const url = useLocation();
+  const checkedUrl = useSignal(`/${url.url.pathname.slice(1, -1)}`);
   const linksAggregate = links.map((l) => (
-    <HeaderItem key={l.href} link={l} isActive={false} />
+    <HeaderItem
+      key={l.href}
+      link={l}
+      isChecked={checkedUrl.value === `/${l.href}`}
+      onCheck$={(val) => {
+        console.log(val);
+        checkedUrl.value = val;
+      }}
+    />
   ));
-  // TODO: prefetching
+  const isOpaque = useSignal<boolean>(false); // TODO: bug, false if browser loaded from scrolled position
   return (
-    <>
-      <ul>
-        {linksAggregate}
-        <button onClick$={$(toggleContact)}>Contact</button>
-      </ul>
-      <div style={fillProps.value}> background </div>
-    </>
+    <div
+      document:onscroll$={() => {
+        const y = window.scrollY;
+        if (y > 100) {
+          isOpaque.value = true;
+        } else {
+          isOpaque.value = false;
+        }
+      }}
+      class={["tabs", isOpaque.value ? "opaque" : null]}
+    >
+      {linksAggregate}
+      <span class="glider"></span>
+    </div>
   );
 });
 
 export default component$(() => {
   return (
-    <header class={styles.header}>
-      <div class={["container", styles.wrapper]}>
-        <LinksHandler links={pages} />
-      </div>
-    </header>
+    <>
+      <header>
+        <div class={["header_container"]}>
+          <LinksHandler links={pages} />
+        </div>
+      </header>
+      <div class="header_fill"></div>
+    </>
   );
 });

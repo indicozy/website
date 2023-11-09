@@ -1,0 +1,139 @@
+:root {
+  --primary-color: #185ee0;
+  --secondary-color: #e6eef9;
+}
+
+header {
+  position: fixed;
+  top: 1rem;
+  left: 0px;
+  right: 0px;
+  width: 100vw;
+  z-index: 10;
+}
+
+.header_fill {
+  height: 200px;
+}
+
+.header_container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tabs {
+  background-color: rgba(0, 0, 0, 0);
+  backdrop-filter: unset;
+  display: flex;
+  position: relative;
+  padding: 0.4rem 0.6rem;
+  border-radius: 99px;
+  transition: 0.25s ease-out;
+  * {
+    z-index: 2;
+  }
+}
+
+.tabs.opaque {
+  background-color: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(10px);
+}
+
+input[type="radio"] {
+  display: none;
+}
+
+.tab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 33px;
+  width: 67px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border-radius: 99px;
+  padding: 0px 5px;
+  cursor: pointer;
+  transition: color 0.15s ease-in;
+  z-index: 2;
+  position: relative;
+  color: var(--qwik-light-text);
+}
+
+input[type="radio"] {
+  &:checked {
+    & + label {
+      color: var(--primary-color);
+      & > .notification {
+        background-color: var(--primary-color);
+        color: #fff;
+      }
+    }
+  }
+}
+
+input[id="radio-"] {
+  &:checked {
+    & ~ .glider {
+      transform: translateX(calc(0% + calc(1 * 5px)));
+    }
+  }
+}
+
+input[id="radio-about"] {
+  &:checked {
+    & ~ .glider {
+      transform: translateX(calc(100% + calc(3 * 5px)));
+    }
+  }
+}
+
+input[id="radio-notes"] {
+  &:checked {
+    & ~ .glider {
+      transform: translateX(calc(200% + calc(5 * 5px)));
+    }
+  }
+}
+
+input[id="radio-fun"] {
+  &:checked {
+    & ~ .glider {
+      transform: translateX(calc(300% + calc(7 * 5px)));
+    }
+  }
+}
+
+input[id="radio-mentorship"] {
+  &:checked {
+    & ~ .glider {
+      transform: translateX(calc(400% + calc(9 * 5px)));
+    }
+  }
+}
+
+input[id="radio-contacts"] {
+  &:checked {
+    & ~ .glider {
+      transform: translateX(calc(500% + calc(11 * 5px)));
+    }
+  }
+}
+
+.glider {
+  position: absolute;
+  display: flex;
+  height: 33px;
+  width: 67px;
+  background-color: rgba(255, 255, 255, 0.5);
+  z-index: 1;
+  border-radius: 99px;
+  transition: 0.25s ease-out;
+}
+
+@media (max-width: 700px) {
+  .tabs {
+    transform: scale(0.6);
+  }
+}

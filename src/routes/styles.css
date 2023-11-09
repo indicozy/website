@@ -94,7 +94,7 @@ ul {
 }
 .container.container-dark {
   background: var(--qwik-dark-background);
-  color: var(--qwik-dark-text);
+  color: var(--qwik-light-text);
 }
 .container.container-center {
   text-align: center;
