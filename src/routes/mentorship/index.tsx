@@ -1,15 +1,8 @@
 import { component$ } from "@builder.io/qwik";
-import { routeLoader$, type DocumentHead } from "@builder.io/qwik-city";
-import { AboutComponent } from "~/components/about";
-import { aboutHandler } from "~/utils/about/aboutHandler";
-
-export const useGetAboutData = routeLoader$(async () => {
-  return await aboutHandler();
-});
+import { type DocumentHead } from "@builder.io/qwik-city";
 
 export default component$(() => {
-  const getAboutData = useGetAboutData();
-  return <AboutComponent data={getAboutData.value} />;
+  return <></>;
 });
 
 export const head: DocumentHead = {

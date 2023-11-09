@@ -1,4 +1,5 @@
 import { z } from "zod";
+import type { getEnv } from "../getEnv";
 // API: AQI
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -69,12 +70,10 @@ export const getAqi = async (
     longitude: number;
     latitude: number;
   },
-  signal?: AbortSignal
+  env: ReturnType<typeof getEnv>
 ) => {
-  const url = `http://api.airvisual.com/v2/nearest_city?lat=${latitude}&lon=${longitude}&key=${
-    import.meta.env.PUBLIC_IQAIR_API_KEY
-  }`;
-  const data = await fetch(url, { signal }).then((res) => res.json());
+  const url = `http://api.airvisual.com/v2/nearest_city?lat=${latitude}&lon=${longitude}&key=${env.IQAIR_API_KEY}`;
+  const data = await fetch(url).then((res) => res.json());
   const dataClean = zRes.parse(data);
   return dataClean;
 };

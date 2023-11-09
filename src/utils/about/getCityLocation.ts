@@ -1,4 +1,5 @@
 import { z } from "zod";
+import type { getEnv } from "../getEnv";
 // API: GOOGLE
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -72,12 +73,12 @@ const zRes = z.object({
 
 export const getCityLocation = async (
   address: string,
-  signal?: AbortSignal
+  env: ReturnType<typeof getEnv>
 ) => {
   const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
     address
-  )}&key=${import.meta.env.PUBLIC_GOOGLE_MAPS_API}`;
-  const data = await fetch(url, { signal: signal }).then((res) => res.json());
+  )}&key=${env.GOOGLE_MAPS_API}`;
+  const data = await fetch(url).then((res) => res.json());
   const dataClean = zRes.parse(data);
   if (dataClean.results.length === 0) {
     throw Error("dataClean.results.length === 0");

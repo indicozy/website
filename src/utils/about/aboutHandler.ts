@@ -1,18 +1,19 @@
+import { getEnv } from "../getEnv";
 import { getAqi } from "./aqi";
 import { getCityLocation } from "./getCityLocation";
 import { parseGithubAccount } from "./githubParser";
 import { timezoneApi } from "./timezoneApi";
 
-export const aboutHandler = async (signal?: AbortSignal) => {
-  const github = await parseGithubAccount(signal);
+export const aboutHandler = async (env: ReturnType<typeof getEnv>) => {
+  const github = await parseGithubAccount(env);
   if (github.location === null) {
     throw Error("github.location === undefined");
   }
-  const location = await getCityLocation(github.location, signal);
+  const location = await getCityLocation(github.location, env);
   // return { github };
   const [timezone, aqi] = await Promise.all([
-    timezoneApi(location, signal),
-    getAqi(location, signal),
+    timezoneApi(location, env),
+    getAqi(location, env),
   ]);
   return { github, aqi, timezone };
 };

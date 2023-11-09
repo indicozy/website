@@ -1,4 +1,5 @@
 import { z } from "zod";
+import type { getEnv } from "../getEnv";
 // API: GOOGLE
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -23,15 +24,11 @@ export const timezoneApi = async (
     longitude: number;
     latitude: number;
   },
-  signal?: AbortSignal
+  env: ReturnType<typeof getEnv>
 ) => {
   const timestamp = Math.floor(new Date().getTime() / 1000);
-  const url = `https://maps.googleapis.com/maps/api/timezone/json?location=${
-    location.latitude
-  }%2C${location.longitude}&timestamp=${timestamp}&key=${
-    import.meta.env.PUBLIC_GOOGLE_MAPS_API
-  }`;
-  const res = await fetch(url, { signal: signal }).then((res) => res.json());
+  const url = `https://maps.googleapis.com/maps/api/timezone/json?location=${location.latitude}%2C${location.longitude}&timestamp=${timestamp}&key=${env.GOOGLE_MAPS_API}`;
+  const res = await fetch(url).then((res) => res.json());
 
   const dataClean = zRes.parse(res);
 

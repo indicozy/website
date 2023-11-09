@@ -44,5 +44,8 @@ lerna-debug.log*
 # Dotenv
 /.env
 
+# just to be extra sure
+/.env.local
+
 # Cloudflare
 functions/**/*.js

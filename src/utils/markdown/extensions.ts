@@ -1,9 +1,9 @@
-import { getEnv } from "../getEnv";
+import { getEnvPublic } from "../getEnv";
 
 /* 
 This file has extensions for showdown, made for integration with Obsidian
  */
-const env = getEnv();
+const env = getEnvPublic();
 // ![[url name | text]] -> <image>
 export const myextPhoto = {
   type: "lang",
