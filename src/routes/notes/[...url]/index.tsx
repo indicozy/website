@@ -28,8 +28,11 @@ export const useGetGraphText = routeLoader$<{
 }>(async (requestEvent) => {
   const { url } = requestEvent.params;
   const gexfLink = urlBuilder(url, "gexf");
-  const gexfText = await fetch(gexfLink).then((res) => res.text());
-  const htmlText = await fetch(urlBuilder(url, "md")).then((res) => res.text());
+  console.log(gexfLink);
+  const [gexfText, htmlText] = await Promise.all([
+    await fetch(gexfLink).then((res) => res.text()),
+    await fetch(urlBuilder(url, "md")).then((res) => res.text()),
+  ]);
 
   return { gexfText, htmlText };
 });

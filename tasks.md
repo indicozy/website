@@ -8,15 +8,23 @@
   - [x] Markdown rendering
   - [ ] Orama or algolia full text search
   - [ ] Link to contribute in github
+  - [ ] Code highlight // higlight.js
 
 - [ ] design
+
+  - styling
   - [ ] fonts
     - geist
-- [ ] Live collaborative interactivity
+
+- [ ] open random note
+- [ ] Recompile to MD (parse html)
+
+  - [ ] Mermaid to svg
+  - [ ] Excalidraw to svg
+        stream everything
 
   - background with squares are filling up on click,
 
-- styling
 - Page About
 - Main page
   - [ ] open random note
@@ -24,6 +32,7 @@
   - fully client-side
   - dynamically imported via Qwik
   - Mentorship
+  - [ ] AI of my markdown????
 - [ ] CV -> pdf
 - Colophon
 - Dark mode

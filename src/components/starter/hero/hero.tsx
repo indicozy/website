@@ -7,9 +7,7 @@ export default component$(() => {
     <div class={["container", styles.hero]}>
       <ImgThunder class={styles["hero-image"]} />
       <h1>
-        So <span class="highlight">fantastic</span>
-        <br />
-        to have <span class="highlight">you</span> here
+        Hi, I'm <span class="highlight">Berkut</span>
       </h1>
       <p>Have fun building your App with Qwik.</p>
       <div class={styles["button-group"]}>

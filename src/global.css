@@ -14,6 +14,10 @@
   --qwik-dirty-black: #1d2033;
   --qwik-dark-background: #151934;
   --qwik-dark-text: #ffffff;
+  --qwik-light-background: #f5f1ea;
+  --qwik-light-text: #27163c;
+  --font-headline: "Lexend Mega";
+  --font-text: "Geist";
   --font-fallback: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
     "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
@@ -21,10 +25,62 @@
 
 @font-face {
   font-family: "Geist";
-  src:
-    url("/fonts/geist.woff2") format("woff2 supports variations"),
-    url("/fonts/geist.woff2") format("woff2-variations");
-  font-weight: 100 1000;
+  src: url("/fonts/geist/thin.otf") format("otf");
+  font-weight: 100;
+}
+
+@font-face {
+  font-family: "Geist";
+  src: url("/fonts/geist/ultralight.otf") format("otf");
+  font-weight: 200;
+}
+
+@font-face {
+  font-family: "Geist";
+  src: url("/fonts/geist/light.otf") format("otf");
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: "Geist";
+  src: url("/fonts/geist/regular.otf") format("otf");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Geist";
+  src: url("/fonts/geist/medium.otf") format("otf");
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "Geist";
+  src: url("/fonts/geist/semibold.otf") format("otf");
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: "Geist";
+  src: url("/fonts/geist/bold.otf") format("otf");
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: "Geist";
+  src: url("/fonts/geist/black.otf") format("otf");
+  font-weight: 800;
+}
+
+@font-face {
+  font-family: "Geist";
+  src: url("/fonts/geist/ultrablack.otf") format("otf");
+  font-weight: 900;
+}
+
+@font-face {
+  font-family: "Lexend Mega";
+  src: url("/fonts/lexend-mega/variable.ttf") format("truetype-variations");
+  font-weight: 100 900;
 }
 
 html {
@@ -33,7 +89,8 @@ html {
   -moz-tab-size: 4;
   -o-tab-size: 4;
   tab-size: 4;
-  font-family: "Geist", var(--font-fallback);
+  font-family: var(--font-text), var(--font-fallback);
+  font-weight: 400;
 }
 
 body {

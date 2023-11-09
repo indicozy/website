@@ -19,8 +19,8 @@
 } */
 
 body {
-  background: var(--qwik-dark-background);
-  color: var(--qwik-dark-text);
+  background: var(--qwik-light-background);
+  color: var(--qwik-light-text);
   overflow-x: hidden;
 }
 
@@ -30,9 +30,11 @@ h2,
 h3 {
   color: white;
   margin: 0;
+  font-weight: 700;
 }
 
 h1 {
+  font-family: var(--font-headline);
   font-size: 3.2rem;
   text-align: center;
 }

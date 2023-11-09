@@ -1,6 +1,6 @@
 import { component$ } from "@builder.io/qwik";
 import { ObsidianGraphClient } from "./ObsidianGraph";
-import { HtmlStringToGraph } from "./ObsidianConverter";
+import { MarkdownToJsx } from "./ObsidianConverter";
 
 export const ObsidianPageBuilder = component$<{
   url: string;
@@ -10,7 +10,7 @@ export const ObsidianPageBuilder = component$<{
   return (
     <>
       <ObsidianGraphClient key={url} text={graphText} isInteractive={true} />
-      <HtmlStringToGraph key={url} data={htmlText} />
+      <MarkdownToJsx key={url} markdown={htmlText} />
     </>
   );
 });
