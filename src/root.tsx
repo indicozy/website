@@ -1,4 +1,5 @@
 import { component$ } from "@builder.io/qwik";
+// import { Insights } from "@builder.io/qwik-labs";
 import {
   QwikCityProvider,
   RouterOutlet,
@@ -7,6 +8,9 @@ import {
 import { RouterHead } from "./components/router-head/router-head";
 
 import "./global.css";
+// import { getEnv } from "./utils/getEnv";
+
+// const env = getEnv();
 
 export default component$(() => {
   /**
@@ -19,6 +23,7 @@ export default component$(() => {
   return (
     <QwikCityProvider>
       <head>
+        {/* <Insights publicApiKey={env.PUBLIC_QWIK_INSIGHTS_KEY} /> */}
         <meta charSet="utf-8" />
         <link rel="manifest" href="/manifest.json" />
         <RouterHead />
