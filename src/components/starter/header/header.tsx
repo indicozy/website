@@ -6,12 +6,10 @@ import { Link, useLocation } from "@builder.io/qwik-city";
 type TLink = { href: string; text: string };
 
 const pages: TLink[] = [
-  { href: "", text: "Home" },
+  { href: "", text: "Works" },
   { href: "about", text: "About" },
   { href: "notes", text: "Notes" },
-  { href: "fun", text: "Fun" },
   { href: "mentorship", text: "Mentor" },
-  { href: "contacts", text: "Contact" },
 ];
 
 const HeaderItem = component$<{
