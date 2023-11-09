@@ -1,6 +1,6 @@
 import { component$, useSignal } from "@builder.io/qwik";
 // import { QwikLogo } from "../icons/qwik";
-import "./header.css";
+import styles from "./header.module.css";
 import { Link, useLocation } from "@builder.io/qwik-city";
 
 type TLink = { href: string; text: string };
@@ -26,10 +26,13 @@ const HeaderItem = component$<{
       <Link
         prefetch
         href={hrefAbsolute}
-        class={isChecked ? `active` : ""}
         onClick$={() => onCheck$(hrefAbsolute)}
       >
-        <label class="tab" for={id} onChange$={() => onCheck$(hrefAbsolute)}>
+        <label
+          class={styles.tab}
+          for={id}
+          onChange$={() => onCheck$(hrefAbsolute)}
+        >
           {text}
         </label>
       </Link>
@@ -63,10 +66,10 @@ const LinksHandler = component$<{ links: TLink[] }>(({ links }) => {
           isOpaque.value = false;
         }
       }}
-      class={["tabs", isOpaque.value ? "opaque" : null]}
+      class={[styles.tabs, isOpaque.value ? styles.tabs_opaque : null]}
     >
       {linksAggregate}
-      <span class="glider"></span>
+      <span class={styles.glider}></span>
     </div>
   );
 });
@@ -74,12 +77,12 @@ const LinksHandler = component$<{ links: TLink[] }>(({ links }) => {
 export default component$(() => {
   return (
     <>
-      <header>
-        <div class={["header_container"]}>
+      <header class={styles.header}>
+        <div class={styles.header_container}>
           <LinksHandler links={pages} />
         </div>
       </header>
-      <div class="header_fill"></div>
+      <div class={styles.header_fill}></div>
     </>
   );
 });
