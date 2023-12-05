@@ -13,8 +13,9 @@
 - [ ] design
 
   - styling
-  - [ ] fonts
-    - geist
+  - [x] fonts
+    - [x] geist
+    - [x] Lexend mega
 
 - [ ] open random note
 - [ ] Recompile to MD (parse html)
@@ -25,19 +26,20 @@
 
   - background with squares are filling up on click,
 
-- Page About
-- Main page
+- [ ] Page About
+- [ ] Main page
   - [ ] open random note
 - [ ] Chatbot contact
-  - fully client-side
-  - dynamically imported via Qwik
-  - Mentorship
+  - [ ] fully client-side
+  - [ ] dynamically imported via Qwik
+  - [ ] Mentorship
   - [ ] AI of my markdown????
-- [ ] CV -> pdf
+- [x] CV -> pdf
 - Colophon
 - Dark mode
   - interactive time scroller
-- Analytics - Cloudflare
+- [ ] Cache API
+- [x] Analytics - Cloudflare
 
 - [x] Weather API
 - [x] Air pollution?
@@ -55,7 +57,6 @@
 
 # Deploy
 
-- Cloudflare R2
-- Cloudflare Edge
+- [x] Cloudflare R2
+- [x] Cloudflare Edge
 - Orama
-- Pusher

@@ -134,9 +134,3 @@ input[id="radio-mentorship"] {
 input[type="radio"] {
   display: none;
 }
-
-/* @media (max-width: 700px) {
-  .tabs {
-    transform: scale(0.6);
-  }
-} */
