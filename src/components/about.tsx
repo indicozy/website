@@ -24,9 +24,9 @@ export const AboutComponent = component$<{
         <h1>I'm Berkut.</h1>
         <p>
           FullStack Developer working remotely from{" "}
-          {data.aqi.data.current.weather.tp}°C {data.github.location}. Air
-          quality is {data.aqi.data.current.pollution.aqius} AQI{" "}
-          {aqiUsEmoji(data.aqi.data.current.pollution.aqius)}.
+          {data.github.location}. Air
+          {/* quality is {data.aqi.data.current?.pollution.aqius} AQI{" "}
+          {data.aqi.data.current ? aqiUsEmoji(data.aqi.data.current.pollution.aqius) : ""}. */}
         </p>
         <p>Working for 1.5 years, I've wo</p>
         <div>

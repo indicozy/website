@@ -11,9 +11,9 @@ export const aboutHandler = async (env: ReturnType<typeof getEnv>) => {
   }
   const location = await getCityLocation(github.location, env);
   // return { github };
-  const [timezone, aqi] = await Promise.all([
-    timezoneApi(location, env),
-    getAqi(location, env),
-  ]);
-  return { github, aqi, timezone };
+  // const [timezone] = await Promise.all([
+  //   timezoneApi(location, env),
+  // getAqi(location, env),
+  // ]);
+  return { github };
 };

@@ -5,6 +5,7 @@ import { getEnvPublic } from "~/utils/getEnv";
 
 export const useGetGraphText = routeLoader$<string>(async () => {
   const url = getEnvPublic().PUBLIC_MARKDOWN_URL + "/graph.gexf";
+  console.log(url)
   const gexfText = await fetch(url)
     .then((res) => res.text())
     .catch((err) => {

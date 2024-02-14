@@ -34,7 +34,7 @@ const resSample = {
 const zRes = z.object({
   status: z.string(),
   data: z.object({
-    city: z.string(),
+    city: z.string().optional(),
     state: z.string(),
     country: z.string(),
     location: z.object({
@@ -58,7 +58,7 @@ const zRes = z.object({
         wd: z.number(),
         ic: z.string(),
       }),
-    }),
+    }).optional(),
   }),
 });
 
