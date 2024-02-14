@@ -1,4 +1,4 @@
-import { $, component$, useSignal } from "@builder.io/qwik";
+import { component$, useSignal } from "@builder.io/qwik";
 // import { QwikLogo } from "../icons/qwik";
 import styles from "./header.module.css";
 import { Link, useLocation } from "@builder.io/qwik-city";
@@ -14,11 +14,13 @@ const pages: TLink[] = [
 
 const HeaderItem = component$<{
   link: TLink;
-  isChecked: boolean;
-  onCheck$: (val: string) => void;
-}>(({ link: { href, text }, isChecked, onCheck$ }) => {
+}>(({ link: { href, text } }) => {
   const id = `radio-${href}`;
   const hrefAbsolute = `/${href}`;
+  const url = useLocation();
+
+  const checkedUrl = useSignal(`/${url.url.pathname.slice(1, -1)}`);
+  const isChecked = checkedUrl.value === `/${href}`
 
   return (
     <>
@@ -26,12 +28,10 @@ const HeaderItem = component$<{
       <Link
         prefetch
         href={hrefAbsolute}
-        onClick$={() => onCheck$(hrefAbsolute)}
       >
         <label
           class={styles.tab}
           for={id}
-          onChange$={() => onCheck$(hrefAbsolute)}
         >
           {text}
         </label>
@@ -42,18 +42,10 @@ const HeaderItem = component$<{
 
 // NOTE: Qwik does not support persisting state during route changes
 const LinksHandler = component$<{ links: TLink[] }>(({ links }) => {
-  const url = useLocation();
-  const checkedUrl = useSignal(`/${url.url.pathname.slice(1, -1)}`);
-  const onCheck = $((val: string) => {
-        console.log(val);
-        checkedUrl.value = val;
-      })
   const linksAggregate = links.map((l) => (
     <HeaderItem
       key={l.href}
       link={l}
-      isChecked={checkedUrl.value === `/${l.href}`}
-      onCheck$={onCheck}
     />
   ));
   const isOpaque = useSignal<boolean>(false); // TODO: bug, false if browser loaded from scrolled position

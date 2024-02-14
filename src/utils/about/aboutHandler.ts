@@ -1,4 +1,4 @@
-import { getEnv } from "../getEnv";
+import type { getEnv } from "../getEnv";
 import { parseGithubAccount } from "./githubParser";
 
 export const aboutHandler = async (env: ReturnType<typeof getEnv>) => {
