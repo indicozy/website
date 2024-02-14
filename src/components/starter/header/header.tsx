@@ -1,4 +1,4 @@
-import { component$, useSignal } from "@builder.io/qwik";
+import { $, component$, useSignal } from "@builder.io/qwik";
 // import { QwikLogo } from "../icons/qwik";
 import styles from "./header.module.css";
 import { Link, useLocation } from "@builder.io/qwik-city";
@@ -44,15 +44,16 @@ const HeaderItem = component$<{
 const LinksHandler = component$<{ links: TLink[] }>(({ links }) => {
   const url = useLocation();
   const checkedUrl = useSignal(`/${url.url.pathname.slice(1, -1)}`);
+  const onCheck = $((val: string) => {
+        console.log(val);
+        checkedUrl.value = val;
+      })
   const linksAggregate = links.map((l) => (
     <HeaderItem
       key={l.href}
       link={l}
       isChecked={checkedUrl.value === `/${l.href}`}
-      onCheck$={(val) => {
-        console.log(val);
-        checkedUrl.value = val;
-      }}
+      onCheck$={onCheck}
     />
   ));
   const isOpaque = useSignal<boolean>(false); // TODO: bug, false if browser loaded from scrolled position
